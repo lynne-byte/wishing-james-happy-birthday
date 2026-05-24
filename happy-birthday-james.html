@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday James 🎂</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --coral: #F0997B;
+      --purple: #7F77DD;
+      --teal: #1D9E75;
+      --amber: #EF9F27;
+      --pink: #D4537E;
+      --dark: #1a1225;
+      --card-bg: #201830;
+    }
+
+    body {
+      background: var(--dark);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Sans', sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Stars */
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .star {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: white;
+      animation: twinkle var(--d, 3s) ease-in-out infinite var(--delay, 0s);
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.4); }
+    }
+
+    /* Confetti */
+    .confetti-wrap {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .confetti-piece {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      animation: fall var(--fall-d, 4s) linear var(--fall-delay, 0s) infinite;
+      opacity: 0;
+    }
+    @keyframes fall {
+      0%   { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(720deg); opacity: 0.3; }
+    }
+
+    /* Card */
+    .card {
+      position: relative;
+      z-index: 2;
+      background: var(--card-bg);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 56px 64px;
+      text-align: center;
+      max-width: 560px;
+      width: 90%;
+      animation: rise 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(127,119,221,0.15);
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(40px) scale(0.96); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Cake emoji */
+    .cake {
+      font-size: 72px;
+      display: block;
+      animation: bounce 2s ease-in-out infinite;
+      margin-bottom: 24px;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-10px); }
+    }
+
+    /* Headline */
+    .subtitle {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 12px;
+      animation: fadeIn 1s 0.3s both;
+    }
+    .headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 8vw, 56px);
+      font-weight: 900;
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: 8px;
+      animation: fadeIn 1s 0.5s both;
+    }
+    .headline span {
+      color: var(--coral);
+      display: block;
+    }
+    .name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(48px, 10vw, 72px);
+      font-weight: 900;
+      background: linear-gradient(90deg, var(--purple), var(--coral), var(--amber));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeIn 1s 0.7s both;
+      margin-bottom: 28px;
+    }
+
+    /* Divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 28px 0;
+      animation: fadeIn 1s 0.9s both;
+    }
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+    }
+    .divider-dot { color: var(--amber); font-size: 18px; }
+
+    /* Message */
+    .message {
+      font-size: 16px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+      animation: fadeIn 1s 1.1s both;
+      margin-bottom: 36px;
+    }
+    .message strong {
+      color: rgba(255,255,255,0.9);
+      font-weight: 500;
+    }
+
+    /* Balloons row */
+    .balloons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      animation: fadeIn 1s 1.3s both;
+      margin-bottom: 36px;
+    }
+    .balloon {
+      font-size: 36px;
+      animation: sway var(--s, 3s) ease-in-out infinite var(--sd, 0s);
+    }
+    @keyframes sway {
+      0%, 100% { transform: rotate(-8deg) translateY(0); }
+      50%       { transform: rotate(8deg) translateY(-8px); }
+    }
+
+    /* Button */
+    .btn {
+      display: inline-block;
+      padding: 14px 36px;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      text-decoration: none;
+      animation: fadeIn 1s 1.5s both;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 8px 24px rgba(127,119,221,0.35);
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(127,119,221,0.5);
+    }
+    .btn:active { transform: scale(0.97); }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Footer */
+    .footer {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px;
+      color: rgba(255,255,255,0.2);
+      z-index: 2;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Stars -->
+  <div class="stars" id="stars"></div>
+
+  <!-- Confetti -->
+  <div class="confetti-wrap" id="confetti"></div>
+
+  <!-- Card -->
+  <div class="card">
+    <span class="cake">🎂</span>
+    <p class="subtitle">Today is a special day</p>
+    <h1 class="headline">Happy Birthday <span>to you,</span></h1>
+    <div class="name">James!</div>
+
+    <div class="balloons">
+      <span class="balloon" style="--s:3s;--sd:0s">🎈</span>
+      <span class="balloon" style="--s:2.5s;--sd:0.4s">🎉</span>
+      <span class="balloon" style="--s:3.5s;--sd:0.2s">🎊</span>
+      <span class="balloon" style="--s:2.8s;--sd:0.6s">🎈</span>
+    </div>
+
+    <div class="divider">
+      <div class="divider-line"></div>
+      <span class="divider-dot">✦</span>
+      <div class="divider-line"></div>
+    </div>
+
+    <p class="message">
+      Wishing you a day filled with <strong>joy, laughter,</strong> and everything you love.<br/>
+      May this year bring you <strong>amazing adventures</strong> and endless happiness. 🌟
+    </p>
+
+    <button class="btn" onclick="burst()">🎁 Click to Celebrate!</button>
+  </div>
+
+  <p class="footer">Made with ❤️ — Happy Birthday James</p>
+
+  <script>
+    // Stars
+    const starsEl = document.getElementById('stars');
+    for (let i = 0; i < 80; i++) {
+      const s = document.createElement('div');
+      s.className = 'star';
+      s.style.left = Math.random() * 100 + 'vw';
+      s.style.top = Math.random() * 100 + 'vh';
+      s.style.setProperty('--d', (2 + Math.random() * 4) + 's');
+      s.style.setProperty('--delay', (Math.random() * 4) + 's');
+      s.style.width = s.style.height = (1 + Math.random() * 3) + 'px';
+      starsEl.appendChild(s);
+    }
+
+    // Confetti
+    const colors = ['#F0997B','#7F77DD','#1D9E75','#EF9F27','#D4537E','#9FE1CB','#AFA9EC','#FAC775'];
+    const confettiEl = document.getElementById('confetti');
+    function makeConfetti(n) {
+      for (let i = 0; i < n; i++) {
+        const c = document.createElement('div');
+        c.className = 'confetti-piece';
+        c.style.left = Math.random() * 100 + 'vw';
+        c.style.background = colors[Math.floor(Math.random() * colors.length)];
+        c.style.setProperty('--fall-d', (3 + Math.random() * 4) + 's');
+        c.style.setProperty('--fall-delay', (Math.random() * 5) + 's');
+        c.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+        c.style.width = c.style.height = (6 + Math.random() * 8) + 'px';
+        confettiEl.appendChild(c);
+      }
+    }
+    makeConfetti(60);
+
+    // Burst button
+    function burst() {
+      confettiEl.innerHTML = '';
+      makeConfetti(120);
+      document.querySelector('.cake').style.animation = 'none';
+      setTimeout(() => {
+        document.querySelector('.cake').style.animation = '';
+      }, 100);
+    }
+  </script>
+</body>
+</html>
